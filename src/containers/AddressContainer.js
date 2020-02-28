@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-
+import { GM_KEY } from '../utils/constants';
 import Header from '../components/Header';
 import AddressSearch from '../components/AddressSearch';
 
@@ -34,7 +34,7 @@ class AddressContainer extends Component {
     const addressString = encodeURIComponent(this.state.address); // formats string to query string url param
 
     axios
-      .get(`${GOOGLE_MAP_API}${addressString}&key=${process.env.GM_KEY}`)
+      .get(`${GOOGLE_MAP_API}${addressString}&key=${GM_KEY}`)
       .then(result => {
         const { lat, lng } = result.data.results[0].geometry.location;
         this.setState({ redirect: true, lat, lng });
