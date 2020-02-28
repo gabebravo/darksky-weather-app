@@ -26,16 +26,15 @@ class AddressContainer extends Component {
   };
 
   getMapCoordinates = () => {
-    const { REACT_APP_GOOGLE_MAP_API, REACT_APP_GM_KEY } = process.env;
     if (this.state.address.length === 0) {
       return console.log('Please enter and address');
     }
+    const GOOGLE_MAP_API =
+      'https://maps.googleapis.com/maps/api/geocode/json?address=';
     const addressString = encodeURIComponent(this.state.address); // formats string to query string url param
 
     axios
-      .get(
-        `${REACT_APP_GOOGLE_MAP_API}${addressString}&key=${REACT_APP_GM_KEY}`
-      )
+      .get(`${GOOGLE_MAP_API}${addressString}&key=${process.env.GM_KEY}`)
       .then(result => {
         const { lat, lng } = result.data.results[0].geometry.location;
         this.setState({ redirect: true, lat, lng });
