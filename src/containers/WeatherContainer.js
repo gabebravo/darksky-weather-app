@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import Header from '../components/Header';
 import MainWeather from '../components/MainWeather';
 import getIcon from '../utils/skycon-icons';
+import { DS_API } from '../utils/constants';
 import PropTypes from 'prop-types';
 
 const jsonp = require('jsonp');
@@ -18,7 +19,7 @@ class WeatherContainer extends Component {
   }
 
   componentDidMount() {
-    const DARK_SKY_URL = `https://api.darksky.net/forecast/${process.env.DS_API}/${this.state.lat},${this.state.lng}`;
+    const DARK_SKY_URL = `https://api.darksky.net/forecast/${DS_API}/${this.state.lat},${this.state.lng}`;
     jsonp(DARK_SKY_URL, null, (err, data) => {
       if (err) {
         console.error(err.message);
